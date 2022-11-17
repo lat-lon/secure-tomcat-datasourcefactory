@@ -2,13 +2,13 @@ package com.github.ncredinburgh.tomcat;
 
 public class PasswordHolder {
 
-	private static String password;
+    private static String password;
 
-	public static void setPassword(String password) {
-		PasswordHolder.password = password;
-	}
+    public static void setPassword(String password) {
+        PasswordHolder.password = password;
+    }
 
-	public static String getPassword() {
-		return password;
-	}
+    public static String getPassword() {
+        return password;
+    }
 }
