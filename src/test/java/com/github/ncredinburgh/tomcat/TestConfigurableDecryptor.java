@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.io.File;
 import java.util.Properties;
 
-import static javax.xml.bind.DatatypeConverter.parseBase64Binary;
+import static jakarta.xml.bind.DatatypeConverter.parseBase64Binary;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

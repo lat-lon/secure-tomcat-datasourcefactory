@@ -2,7 +2,7 @@ package com.github.ncredinburgh.tomcat;
 
 import java.util.Properties;
 
-import static javax.xml.bind.DatatypeConverter.parseBase64Binary;
+import static jakarta.xml.bind.DatatypeConverter.parseBase64Binary;
 
 public class DES56CompiledKey implements KeyLocator {
 
