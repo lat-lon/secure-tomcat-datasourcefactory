@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/ncredinburgh/secure-tomcat-datasourcefactory.svg?branch=master)](https://travis-ci.org/ncredinburgh/secure-tomcat-datasourcefactory)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.ncredinburgh/secure-tomcat-datasourcefactory/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.ncredinburgh/secure-tomcat-datasourcefactory)
+[![Build Status](https://github.com/lat-lon/secure-tomcat-datasourcefactory/actions/workflows/build.yml/badge.svg)](https://github.com/lat-lon/secure-tomcat-datasourcefactory/actions/workflows/build.yml)
 
 Secure Tomcat DataSourceFactory
 ===============================
@@ -10,9 +9,9 @@ This library may also be run from the command line to generate an encryption key
 
 The secure Tomcat DataSourceFactory is tested using the GitHub project [secure-datasourcefactory-test](https://github.com/grantjforrester/secure-datasourcefactory-test). The following databases have been tested:
 
-* Postgres 9.6
-* Oracle 12c    
-
+* Postgres 16
+* Oracle 19c
+* MS SQL Server 2016
 
 Getting Started
 ---------------
@@ -192,9 +191,16 @@ This project was inspired by an original article on [JDev](https://www.jdev.it) 
 Releases
 --------
 
-### 0.4
+### 0.5
 - Upgraded to Java 25 
 - Upgraded to Apache Tomcat 11.0 API
+
+### 0.4
+- Upgraded to Apache Tomcat 10.1 API
+
+### 0.3
+- Upgraded to Java 17
+- Refactorings 
 
 ### 0.2
 
