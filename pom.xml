@@ -1,18 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.ncredinburgh</groupId>
+    <groupId>com.github.lat-lon</groupId>
     <artifactId>secure-tomcat-datasourcefactory</artifactId>
-    <version>0.4-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
 
     <name>Secure Tomcat DataSource Factory</name>
     <description>A Tomcat DataSourceFactory that supports an encrypted password</description>
-    <url>https://github.com/NCR-CoDE/secure-tomcat-datasourcefactory</url>
+    <url>https://github.com/lat-lon/secure-tomcat-datasourcefactory</url>
 
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
 
@@ -21,13 +21,20 @@
             <name>Grant Forrester</name>
             <url>https://github.com/grantjforrester</url>
         </developer>
+        <developer>
+            <name>HamidReza Ireh</name>
+            <url>https://github.com/hr-ireh</url>
+        </developer>
+        <developer>
+            <name>Torsten Friebe (lat/lon)</name>
+            <url>https://github.com/tfr42</url>
+        </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/NCR-CoDE/secure-tomcat-datasourcefactory.git</connection>
-        <developerConnection>scm:git:ssh://github.com/ncredinburgh/secure-tomcat-datasourcefactory.git
-        </developerConnection>
-        <url>https://github.com/ncredinburgh/secure-tomcat-datasourcefactory.git</url>
+        <connection>scm:git:git://github.com/lat-lon/secure-tomcat-datasourcefactory.git</connection>
+        <developerConnection>scm:git:ssh://github.com//secure-tomcat-datasourcefactory.git</developerConnection>
+        <url>https://github.com/lat-lon/secure-tomcat-datasourcefactory.git</url>
     </scm>
 
     <distributionManagement>
