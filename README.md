@@ -4,7 +4,7 @@
 Secure Tomcat DataSourceFactory
 ===============================
 
-This library provides a drop in replacement for the standard Tomcat DataSourceFactory that allows the database connection password to be encrypted using a symmetric key for the purposes of security.  This datasource uses the standard [Cipher](http://docs.oracle.com/javase/7/docs/api/javax/crypto/Cipher.html) class from Java Cryptography Architecture to perform the decrytion.  As such all the algorithms installed in the JVM are available to use.  By default all JVM vendors must support the [standard algorithms](http://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#impl). Consult your vendor's documentation for any further algorithm support.
+This library provides a drop in replacement for the standard Tomcat DataSourceFactory that allows the database connection password to be encrypted using a symmetric key for the purposes of security.  This datasource uses the standard [Cipher](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/javax/crypto/Cipher.html) class from Java Cryptography Architecture to perform the decryption.  As such all the algorithms installed in the JVM are available to use.  By default all JVM vendors must support the [standard algorithms](https://docs.oracle.com/en/java/javase/25/docs/specs/security/standard-names.html). Consult your vendor's documentation for any further algorithm support.
 
 This library may also be run from the command line to generate an encryption key and encrypted password to be used in the Tomcat configuration.
 
@@ -24,7 +24,7 @@ Getting Started
 e.g to create a new 128-bit AES key run the command:
 
 ```
-$ java -jar secure-tomcat-datasourcefactory-0.2.jar generateKey AES 128 /some/super/secure/location/keyfile
+$ java -jar secure-tomcat-datasourcefactory-0.4.jar generateKey AES 128 /some/super/secure/location/keyfile
 New key written to file: /some/super/secure/location/keyfile 
 ```
 
@@ -33,7 +33,7 @@ New key written to file: /some/super/secure/location/keyfile
 * Generate the encrypted password in [Base64](https://en.wikipedia.org/wiki/Base64) encoding e.g. using AES/ECB/PKCS5PADDING
 
 ```
-$ java -jar secure-tomcat-datasourcefactory-0.2.jar encryptPassword mypassword AES ECB PKCS5PADDING /some/super/secure/location/keyfile`
+$ java -jar secure-tomcat-datasourcefactory-0.4.jar encryptPassword mypassword AES ECB PKCS5PADDING /some/super/secure/location/keyfile`
 Encrypted password: O+JXajIzZS5Hi2+3vpdeqw==
 ```
 
@@ -51,12 +51,12 @@ Configure Tomcat
     * Add algorithm details to `connectionProperties` e.g. `algorithm=AES;mode=ECB;padding=PKCS5PADDING`
     
     * Add location of keyfile to `connectionProperties` e.g.`keyFilename=/some/super/secure/location/keyfile`
-3. Congratulations your done!  
+3. Congratulations you are done!  
 
 
 ### Tomcat Configuration Examples
  
-These examples are based on the examples given in [Tomcat JNDI Datasource HOW-TO](https://tomcat.apache.org/tomcat-7.0-doc/jndi-datasource-examples-howto.html)
+These examples are based on the examples given in [Tomcat JNDI Datasource HOW-TO](https://tomcat.apache.org/tomcat-11.0-doc/jndi-datasource-examples-howto.html)
 
 #### Oracle datasource using encrypted password  
 
@@ -84,7 +84,7 @@ Reference
 
 ### Tomcat Configuration Reference 
 
-The `SecureDataSourceFactory` extends the [standard Tomcat DataSource](https://tomcat.apache.org/tomcat-7.0-doc/api/org/apache/tomcat/jdbc/pool/DataSourceFactory.html) and is configured using the DataSource property `connectionProperties` with the following values :
+The `SecureDataSourceFactory` extends the [standard Tomcat DataSource](https://tomcat.apache.org/tomcat-11.0-doc/api/org/apache/tomcat/jdbc/pool/DataSourceFactory.html) and is configured using the DataSource property `connectionProperties` with the following values :
 
 * `algorithm`
 
@@ -115,7 +115,7 @@ The `SecureTomcatDataSourceFactory` library can be run on the command line to pe
 You can execute the `SecureTomcatDataSourceFactory` using the command line:
 
 ```
-$ java -jar secure-tomcat-datasourcefactory-0.2.jar <command> <options>
+$ java -jar secure-tomcat-datasourcefactory-0.4.jar <command> <options>
 ``` 
 
 The following commands are supported:
@@ -191,6 +191,10 @@ This project was inspired by an original article on [JDev](https://www.jdev.it) 
 
 Releases
 --------
+
+### 0.4
+- Upgraded to Java 25 
+- Upgraded to Apache Tomcat 11.0 API
 
 ### 0.2
 
