@@ -39,7 +39,7 @@ public class SecureDataSourceFactory extends DataSourceFactory {
     private String decryptPassword(Properties properties) throws DecryptionException {
         byte[] cipherBytes = parseBase64Binary(properties.getProperty(PROP_PASSWORD));
         decryptor.configure(parseProperties(properties.getProperty(PROP_CONNECTIONPROPERTIES)));
-        return Arrays.toString(decryptor.decrypt(cipherBytes));
+        return new String(decryptor.decrypt(cipherBytes));
     }
 
     private void validate(Properties properties) throws DecryptionException {
