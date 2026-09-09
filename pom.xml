@@ -34,18 +34,18 @@
     <scm>
         <connection>scm:git:git://github.com/lat-lon/secure-tomcat-datasourcefactory.git</connection>
         <developerConnection>scm:git:ssh://github.com//secure-tomcat-datasourcefactory.git</developerConnection>
-        <url>https://github.com/lat-lon/secure-tomcat-datasourcefactory.git</url>
+        <url>https://github.com/lat-lon/secure-tomcat-datasourcefactory</url>
     </scm>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/lat-lon/secure-tomcat-datasourcefactory</url>
         </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/lat-lon/secure-tomcat-datasourcefactory</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <properties>
