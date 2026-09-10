@@ -32,9 +32,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/lat-lon/secure-tomcat-datasourcefactory.git</connection>
-        <developerConnection>scm:git:ssh://github.com//secure-tomcat-datasourcefactory.git</developerConnection>
-        <url>https://github.com/lat-lon/secure-tomcat-datasourcefactory.git</url>
+        <connection>scm:git:git@github.com:lat-lon/secure-tomcat-datasourcefactory.git</connection>
+        <developerConnection>scm:git:git@github.com:lat-lon/secure-tomcat-datasourcefactory.git</developerConnection>
+        <url>https://github.com/lat-lon/secure-tomcat-datasourcefactory</url>
     </scm>
 
     <distributionManagement>
