@@ -21,9 +21,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+      - name: Configure Git User
+        run: |
+          git config --local user.email "secure-tomcat-datasourcefactory@github.com" 
+          git config --local user.name "GitHub Actions"
+      - uses: webfactory/ssh-agent@v0.10.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Set up JDK 25
         uses: actions/setup-java@v5
         with:
@@ -36,7 +40,7 @@ jobs:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
       - name: Prepare and release
-        run: mvn -Dresume=false -DreleaseVersion=${{ github.event.inputs.release_version }} -DdevelopmentVersion=${{ github.event.inputs.next_version }} -DdeployAtEnd=true -Dgoals=deploy release:prepare release:perform
+        run: mvn -Dresume=false -DreleaseVersion=${{ github.event.inputs.release_version }} -DdevelopmentVersion=${{ github.event.inputs.next_version }} -DreleaseProfiles=release -DdeployAtEnd=true -Dgoals=deploy release:prepare release:perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
