@@ -3,7 +3,7 @@
 Secure Tomcat DataSourceFactory
 ===============================
 
-This library provides a drop in replacement for the standard Tomcat DataSourceFactory that allows the database connection password to be encrypted using a symmetric key for the purposes of security.  This datasource uses the standard [Cipher](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/javax/crypto/Cipher.html) class from Java Cryptography Architecture to perform the decryption.  As such all the algorithms installed in the JVM are available to use.  By default all JVM vendors must support the [standard algorithms](https://docs.oracle.com/en/java/javase/25/docs/specs/security/standard-names.html). Consult your vendor's documentation for any further algorithm support.
+This library provides a drop in replacement for the standard Tomcat DataSourceFactory that allows the database connection password to be encrypted using a symmetric key for the purposes of security.  This datasource uses the standard [Cipher](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/javax/crypto/Cipher.html) class from Java Cryptography Architecture to perform the decryption.  As such all the algorithms installed in the JVM are available to use.  By default, all JVM vendors must support the [standard algorithms](https://docs.oracle.com/en/java/javase/25/docs/specs/security/standard-names.html). Consult your vendor's documentation for any further algorithm support.
 
 This library may also be run from the command line to generate an encryption key and encrypted password to be used in the Tomcat configuration.
 
@@ -16,11 +16,11 @@ The secure Tomcat DataSourceFactory is tested using the GitHub project [secure-d
 Getting Started
 ---------------
 ### Download the Library
-* Download the latest version of the library using the link in the Maven Central badge at the top of this page.
+* Download the latest version of the library from GitHub packages: https://github.com/orgs/lat-lon/packages?repo_name=secure-tomcat-datasourcefactory.
 
 ### Generate Key and Encrypted Password
 * Generate a new random encryption key to a file 
-e.g to create a new 128-bit AES key run the command:
+e.g. to create a new 128-bit AES key run the command:
 
 ```
 $ java -jar secure-tomcat-datasourcefactory-0.4.jar generateKey AES 128 /some/super/secure/location/keyfile
@@ -32,7 +32,7 @@ New key written to file: /some/super/secure/location/keyfile
 * Generate the encrypted password in [Base64](https://en.wikipedia.org/wiki/Base64) encoding e.g. using AES/ECB/PKCS5PADDING
 
 ```
-$ java -jar secure-tomcat-datasourcefactory-0.4.jar encryptPassword mypassword AES ECB PKCS5PADDING /some/super/secure/location/keyfile`
+$ java -jar secure-tomcat-datasourcefactory-0.4.jar encryptPassword mypassword AES ECB PKCS5PADDING /some/super/secure/location/keyfile
 Encrypted password: O+JXajIzZS5Hi2+3vpdeqw==
 ```
 
@@ -185,7 +185,7 @@ All contributions are welcome. Just fork this repository and send us a merge req
 
 Credits
 -------
-This project was inspired by an original article on [JDev](https://www.jdev.it) called ["Encrypting passwords in Tomcat"](https://www.jdev.it/encrypting-passwords-in-tomcat/).   
+This project was inspired by an original article on [JDev](https://www.jdev.it) called ["Encrypting passwords in Tomcat" (archived version retrieved 2026-08-06)](https://web.archive.org/web/20160316104633/http://www.jdev.it/encrypting-passwords-in-tomcat/).
 
 
 Releases
