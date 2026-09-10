@@ -10,7 +10,7 @@ import java.util.Properties;
 import static com.github.ncredinburgh.tomcat.PasswordHolder.getPassword;
 import static com.github.ncredinburgh.tomcat.PasswordHolder.setPassword;
 import static com.github.ncredinburgh.tomcat.PropertyParser.parseProperties;
-import static javax.xml.bind.DatatypeConverter.parseBase64Binary;
+import static jakarta.xml.bind.DatatypeConverter.parseBase64Binary;
 
 /**
  * A {@link DataSourceFactory} that supports an encrypted password.

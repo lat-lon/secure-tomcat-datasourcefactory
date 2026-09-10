@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 
 import static java.lang.String.format;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
-import static javax.xml.bind.DatatypeConverter.printBase64Binary;
+import static jakarta.xml.bind.DatatypeConverter.printBase64Binary;
 
 public class EncryptionTool {
 

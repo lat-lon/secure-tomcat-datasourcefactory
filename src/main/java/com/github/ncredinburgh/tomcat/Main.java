@@ -19,7 +19,7 @@ import static java.lang.String.format;
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Paths.get;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
-import static javax.xml.bind.DatatypeConverter.printBase64Binary;
+import static jakarta.xml.bind.DatatypeConverter.printBase64Binary;
 
 public class Main {
 
