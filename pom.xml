@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.lat-lon</groupId>
     <artifactId>secure-tomcat-datasourcefactory</artifactId>
-    <version>0.5-SNAPSHOT</version>
+    <version>0.5</version>
 
     <name>Secure Tomcat DataSource Factory</name>
     <description>A Tomcat DataSourceFactory that supports an encrypted password</description>
@@ -34,7 +34,7 @@
         <connection>scm:git:git@github.com:lat-lon/secure-tomcat-datasourcefactory.git</connection>
         <developerConnection>scm:git:git@github.com:lat-lon/secure-tomcat-datasourcefactory.git</developerConnection>
         <url>https://github.com/lat-lon/secure-tomcat-datasourcefactory</url>
-      <tag>HEAD</tag>
+      <tag>secure-tomcat-datasourcefactory-0.5</tag>
   </scm>
 
     <distributionManagement>
