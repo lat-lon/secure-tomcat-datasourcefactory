@@ -4,33 +4,48 @@ import java.io.IOException;
 import java.util.Properties;
 
 import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Paths.get;
+import static java.nio.file.Path.of;
 
+/**
+ * A {@link KeyLocator} that reads the secret key from a file.
+ */
 public class KeyFile implements KeyLocator {
 
-    public static final String PROP_KEY_FILENAME = "keyFilename";
+	/**
+	 * The property name holding the path of the key file.
+	 */
+	public static final String PROP_KEY_FILENAME = "keyFilename";
 
-    private String keyFilename;
+	private String keyFilename;
 
-    @Override
-    public void configure(Properties properties) throws DecryptionException {
-        keyFilename = properties.getProperty(PROP_KEY_FILENAME);
-    }
+	/**
+	 * Creates a new, unconfigured key file locator. Call {@link #configure(Properties)}
+	 * before {@link #locateKey()}.
+	 */
+	public KeyFile() {
+	}
 
-    @Override
-    public byte[] locateKey() throws DecryptionException {
-        try {
-            validate();
+	@Override
+	public void configure(Properties properties) throws DecryptionException {
+		keyFilename = properties.getProperty(PROP_KEY_FILENAME);
+	}
 
-            return readAllBytes(get(keyFilename));
-        } catch (IOException e) {
-            throw new DecryptionException(e);
-        }
-    }
+	@Override
+	public byte[] locateKey() throws DecryptionException {
+		try {
+			validate();
 
-    private void validate() throws DecryptionException {
-        if (keyFilename == null) {
-            throw new DecryptionException("Property '" + PROP_KEY_FILENAME + "' not specified");
-        }
-    }
+			return readAllBytes(of(keyFilename));
+		}
+		catch (IOException e) {
+			throw new DecryptionException(e);
+		}
+	}
+
+	private void validate() throws DecryptionException {
+		if (keyFilename == null) {
+			throw new DecryptionException("Property '" + PROP_KEY_FILENAME + "' not specified");
+		}
+	}
+
 }

@@ -1,46 +1,45 @@
 package com.github.ncredinburgh.tomcat;
 
-import org.junit.Test;
-
 import java.util.Properties;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestPropertyParser {
 
-    @Test
-    public void shouldParseOneProperty() throws Exception {
-        String propertyString = "prop1=value1";
+	@Test
+	public void shouldParseOneProperty() throws Exception {
+		String propertyString = "prop1=value1";
 
-        Properties result = PropertyParser.parseProperties(propertyString);
+		Properties result = PropertyParser.parseProperties(propertyString);
 
-        assertThat(result.size(), equalTo(1));
-        assertThat(result.containsKey("prop1"), equalTo(true));
-        assertThat(result.getProperty("prop1"), equalTo("value1"));
-    }
+		assertThat(result.size()).isEqualTo(1);
+		assertThat(result.containsKey("prop1")).isEqualTo(true);
+		assertThat(result.getProperty("prop1")).isEqualTo("value1");
+	}
 
-    @Test
-    public void shouldParseTwoProperties() throws Exception {
-        String propertyString = "prop1=value1;prop2=value2";
+	@Test
+	public void shouldParseTwoProperties() throws Exception {
+		String propertyString = "prop1=value1;prop2=value2";
 
-        Properties result = PropertyParser.parseProperties(propertyString);
+		Properties result = PropertyParser.parseProperties(propertyString);
 
-        assertThat(result.size(), equalTo(2));
-        assertThat(result.containsKey("prop1"), equalTo(true));
-        assertThat(result.getProperty("prop1"), equalTo("value1"));
-        assertThat(result.containsKey("prop2"), equalTo(true));
-        assertThat(result.getProperty("prop2"), equalTo("value2"));
-    }
+		assertThat(result.size()).isEqualTo(2);
+		assertThat(result.containsKey("prop1")).isEqualTo(true);
+		assertThat(result.getProperty("prop1")).isEqualTo("value1");
+		assertThat(result.containsKey("prop2")).isEqualTo(true);
+		assertThat(result.getProperty("prop2")).isEqualTo("value2");
+	}
 
-    @Test
-    public void shouldIgnoreTrailingSemicolon() throws Exception {
-        String propertyString = "prop1=value1;";
+	@Test
+	public void shouldIgnoreTrailingSemicolon() throws Exception {
+		String propertyString = "prop1=value1;";
 
-        Properties result = PropertyParser.parseProperties(propertyString);
+		Properties result = PropertyParser.parseProperties(propertyString);
 
-        assertThat(result.size(), equalTo(1));
-        assertThat(result.containsKey("prop1"), equalTo(true));
-        assertThat(result.getProperty("prop1"), equalTo("value1"));
-    }
+		assertThat(result.size()).isEqualTo(1);
+		assertThat(result.containsKey("prop1")).isEqualTo(true);
+		assertThat(result.getProperty("prop1")).isEqualTo("value1");
+	}
+
 }
