@@ -1,0 +1,40 @@
+services:
+  tomcat:
+    #image: dhi.io/tomcat:11-jdk25-alpine-dev
+    image: tomcat:11-jdk25
+    depends_on:
+      - pg_db
+    links:
+      - pg_db
+    volumes:
+      - ./target/secure-tomcat-datasourcefactory-${STCDSF_VERSION}.jar:/usr/local/tomcat/lib/secure-tomcat-datasourcefactory-${STCDSF_VERSION}.jar:r
+    ports:
+      - "8980:8080"
+  pg_db:
+    image: postgis/postgis:18-3.6
+    platform: linux/amd64
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -h localhost -p 5432 -U postgres -d postgres" ]
+      interval: 5s
+      retries: 3
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    configs:
+      - source: postgresql_init_sql
+        target: /docker-entrypoint-initdb.d/init.sql
+    profiles:
+      - postgresql
+configs:
+  postgresql_init_sql:
+    content: |
+      CREATE USER "tester" PASSWORD 'secret';
+      CREATE DATABASE "testdb" OWNER 'tester';
+      GRANT ALL PRIVILEGES ON DATABASE "testdb" TO "tester";
+      GRANT CONNECT ON DATABASE "testdb" TO "tester";
+
+networks:
+  default:
+    name: deegree

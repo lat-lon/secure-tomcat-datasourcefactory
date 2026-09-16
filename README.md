@@ -3,15 +3,15 @@
 Secure Tomcat DataSourceFactory
 ===============================
 
-This library provides a drop in replacement for the standard Tomcat DataSourceFactory that allows the database connection password to be encrypted using a symmetric key for the purposes of security.  This datasource uses the standard [Cipher](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/javax/crypto/Cipher.html) class from Java Cryptography Architecture to perform the decryption.  As such all the algorithms installed in the JVM are available to use.  By default, all JVM vendors must support the [standard algorithms](https://docs.oracle.com/en/java/javase/25/docs/specs/security/standard-names.html). Consult your vendor's documentation for any further algorithm support.
+This library provides a drop in replacement for the standard Tomcat DataSourceFactory that allows the database connection password to be encrypted using a symmetric key for the purposes of security.  This datasource uses the standard [Cipher](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/javax/crypto/Cipher.html) class from Java Cryptography Architecture to perform the decryption.  As such all the algorithms installed in the JVM are available to use. By default, all JVM vendors must support the [standard algorithms](https://docs.oracle.com/en/java/javase/25/docs/specs/security/standard-names.html). Consult your vendor's documentation for any further algorithm support.
 
 This library may also be run from the command line to generate an encryption key and encrypted password to be used in the Tomcat configuration.
 
-The secure Tomcat DataSourceFactory is tested using the GitHub project [secure-datasourcefactory-test](https://github.com/grantjforrester/secure-datasourcefactory-test). The following databases have been tested:
+The library can be tested using the docker `compose.yml`. The following databases have been tested:
 
-* Postgres 16
+* Postgres 18
+* MS SQL Server 2022
 * Oracle 19c
-* MS SQL Server 2016
 
 Getting Started
 ---------------
@@ -23,7 +23,7 @@ Getting Started
 e.g. to create a new 128-bit AES key run the command:
 
 ```
-$ java -jar secure-tomcat-datasourcefactory-0.4.jar generateKey AES 128 /some/super/secure/location/keyfile
+$ java -jar secure-tomcat-datasourcefactory-0.6.jar generateKey AES 128 /some/super/secure/location/keyfile
 New key written to file: /some/super/secure/location/keyfile 
 ```
 
@@ -32,7 +32,7 @@ New key written to file: /some/super/secure/location/keyfile
 * Generate the encrypted password in [Base64](https://en.wikipedia.org/wiki/Base64) encoding e.g. using AES/ECB/PKCS5PADDING
 
 ```
-$ java -jar secure-tomcat-datasourcefactory-0.4.jar encryptPassword mypassword AES ECB PKCS5PADDING /some/super/secure/location/keyfile
+$ java -jar secure-tomcat-datasourcefactory-0.6.jar encryptPassword mypassword AES ECB PKCS5PADDING /some/super/secure/location/keyfile
 Encrypted password: O+JXajIzZS5Hi2+3vpdeqw==
 ```
 
@@ -114,7 +114,7 @@ The `SecureTomcatDataSourceFactory` library can be run on the command line to pe
 You can execute the `SecureTomcatDataSourceFactory` using the command line:
 
 ```
-$ java -jar secure-tomcat-datasourcefactory-0.4.jar <command> <options>
+$ java -jar secure-tomcat-datasourcefactory-0.6.jar <command> <options>
 ``` 
 
 The following commands are supported:
@@ -178,9 +178,9 @@ Contributing
 
 All contributions are welcome. Just fork this repository and send us a merge request.  Just make sure your code meets the following requirements:
 
-* You follow the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html)
+* You follow the [Spring Java Style Guide](https://github.com/spring-io/spring-javaformat)
+* Apply the style with `mvn spring-javaformat:apply`
 * All the unit tests pass when running `mvn test`
-
 
 
 Credits
@@ -190,6 +190,9 @@ This project was inspired by an original article on [JDev](https://www.jdev.it) 
 
 Releases
 --------
+### 0.6
+- Upgraded to JUnit Jupiter 6.1
+- Source code formatting switched to `spring-javaformat`
 
 ### 0.5
 - Upgraded to Java 25 
@@ -203,10 +206,8 @@ Releases
 - Refactorings 
 
 ### 0.2
-
 - Library can be run from the command line to produce new encryption key and to encrypt password.
 - Updates to README including instructions on how to run library on command line.
 
 ### 0.1
-
 - First public release

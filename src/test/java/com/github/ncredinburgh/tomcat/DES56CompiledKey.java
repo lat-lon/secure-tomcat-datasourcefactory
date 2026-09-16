@@ -6,16 +6,17 @@ import static jakarta.xml.bind.DatatypeConverter.parseBase64Binary;
 
 public class DES56CompiledKey implements KeyLocator {
 
-    private static final String base64DES56Key = "ecH4RqJrx2s=";
+	private static final String base64DES56Key = "ecH4RqJrx2s=";
 
-    @Override
-    public void configure(Properties properties) throws DecryptionException {
-        // TODO Auto-generated method stub
+	@Override
+	public void configure(Properties properties) throws DecryptionException {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public byte[] locateKey() throws DecryptionException {
-        return parseBase64Binary(base64DES56Key);
-    }
+	@Override
+	public byte[] locateKey() throws DecryptionException {
+		return parseBase64Binary(base64DES56Key);
+	}
+
 }

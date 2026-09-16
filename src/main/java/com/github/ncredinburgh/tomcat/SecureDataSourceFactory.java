@@ -13,41 +13,51 @@ import static com.github.ncredinburgh.tomcat.PropertyParser.parseProperties;
 import static jakarta.xml.bind.DatatypeConverter.parseBase64Binary;
 
 /**
- * A {@link DataSourceFactory} that supports an encrypted password.
- * The datasource assumes that the <code>password</code> property contains an encrypted password and
- * decrypts it using the configured {@link ConfigurableDecryptor}.
+ * A {@link DataSourceFactory} that supports an encrypted password. The datasource assumes
+ * that the <code>password</code> property contains an encrypted password and decrypts it
+ * using the configured {@link ConfigurableDecryptor}.
+ *
+ * @since 0.1
  */
 public class SecureDataSourceFactory extends DataSourceFactory {
 
-    private final Decryptor decryptor = new ConfigurableDecryptor();
+	private final Decryptor decryptor = new ConfigurableDecryptor();
 
-    @Override
-    public DataSource createDataSource(Properties properties, Context context, boolean xa) throws Exception {
-        validate(properties);
-        replacePassword(properties);
+	/**
+	 * Creates a new factory. Tomcat instantiates the factory using its default
+	 * constructor.
+	 */
+	public SecureDataSourceFactory() {
+	}
 
-        return super.createDataSource(properties, context, xa);
-    }
+	@Override
+	public DataSource createDataSource(Properties properties, Context context, boolean xa) throws Exception {
+		validate(properties);
+		replacePassword(properties);
 
-    private void replacePassword(Properties properties) throws DecryptionException {
-        if (getPassword() == null) {
-            setPassword(decryptPassword(properties));
-        }
-        properties.setProperty(PROP_PASSWORD, getPassword());
-    }
+		return super.createDataSource(properties, context, xa);
+	}
 
-    private String decryptPassword(Properties properties) throws DecryptionException {
-        byte[] cipherBytes = parseBase64Binary(properties.getProperty(PROP_PASSWORD));
-        decryptor.configure(parseProperties(properties.getProperty(PROP_CONNECTIONPROPERTIES)));
-        return new String(decryptor.decrypt(cipherBytes));
-    }
+	private void replacePassword(Properties properties) throws DecryptionException {
+		if (getPassword() == null) {
+			setPassword(decryptPassword(properties));
+		}
+		properties.setProperty(PROP_PASSWORD, getPassword());
+	}
 
-    private void validate(Properties properties) throws DecryptionException {
-        if (!properties.containsKey(PROP_PASSWORD)) {
-            throw new DecryptionException("Property '" + PROP_PASSWORD + "' not specified");
-        }
-        if (!properties.containsKey(PROP_CONNECTIONPROPERTIES)) {
-            throw new DecryptionException("Property '" + PROP_CONNECTIONPROPERTIES + "' not specified");
-        }
-    }
+	private String decryptPassword(Properties properties) throws DecryptionException {
+		byte[] cipherBytes = parseBase64Binary(properties.getProperty(PROP_PASSWORD));
+		decryptor.configure(parseProperties(properties.getProperty(PROP_CONNECTIONPROPERTIES)));
+		return new String(decryptor.decrypt(cipherBytes));
+	}
+
+	private void validate(Properties properties) throws DecryptionException {
+		if (!properties.containsKey(PROP_PASSWORD)) {
+			throw new DecryptionException("Property '" + PROP_PASSWORD + "' not specified");
+		}
+		if (!properties.containsKey(PROP_CONNECTIONPROPERTIES)) {
+			throw new DecryptionException("Property '" + PROP_CONNECTIONPROPERTIES + "' not specified");
+		}
+	}
+
 }

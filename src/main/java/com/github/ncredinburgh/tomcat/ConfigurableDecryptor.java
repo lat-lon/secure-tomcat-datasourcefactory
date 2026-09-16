@@ -9,72 +9,124 @@ import static java.lang.String.format;
 import static javax.crypto.Cipher.DECRYPT_MODE;
 
 /**
- * A configurable {@link Decryptor} that allows a given cipher text to be decrypted using a specified algorithm and key file.
- * The decryptor can be configured through the properties provided in the constructor.   The following properties are available
+ * A configurable {@link com.github.ncredinburgh.tomcat.Decryptor} that allows a given
+ * cipher text to be decrypted using a specified algorithm and key file. The decryptor can
+ * be configured through the properties provided in the constructor. The following
+ * properties are available
  *
  * <dl>
- * 	<dt>algorithm</dt>
- *  <dt>mode</dt>
- *  <dt>padding</dt>
- *  <dt>keyFilename</dt>
+ * <dt>algorithm</dt>
+ * <dt>mode</dt>
+ * <dt>padding</dt>
+ * <dt>keyFilename</dt>
  * </dl>
  * <p>
  * The file specified by keyFilename must exist and be readable by the Tomcat user.
+ *
+ * @since 0.1
  */
 public class ConfigurableDecryptor implements Decryptor {
 
-    public static final String PROP_ALGORITHM = "algorithm";
-    public static final String PROP_MODE = "mode";
-    public static final String PROP_PADDING = "padding";
-    public static final String PROP_KEYLOCATOR = "keyLocator";
+	/**
+	 * The property name for the algorithm used to decrypt the password.
+	 */
+	public static final String PROP_ALGORITHM = "algorithm";
 
-    public static final String DEFAULT_KEYLOCATOR = "com.github.ncredinburgh.tomcat.KeyFile";
-    public static final String DEFAULT_MODE = "NONE";
-    public static final String DEFAULT_PADDING = "NoPadding";
+	/**
+	 * The property name for the mode used with the algorithm.
+	 */
+	public static final String PROP_MODE = "mode";
 
-    private String algorithm;
-    private String mode;
-    private String padding;
-    private KeyLocator keyLocator;
+	/**
+	 * The property name for the padding used with the algorithm.
+	 */
+	public static final String PROP_PADDING = "padding";
 
-    public void configure(Properties properties) throws DecryptionException {
-        algorithm = properties.getProperty(PROP_ALGORITHM);
-        mode = properties.getProperty(PROP_MODE, DEFAULT_MODE);
-        padding = properties.getProperty(PROP_PADDING, DEFAULT_PADDING);
-        String keyLocatorClass = properties.getProperty(PROP_KEYLOCATOR, DEFAULT_KEYLOCATOR);
+	/**
+	 * The property name for the fully qualified class name of the {@link KeyLocator}.
+	 */
+	public static final String PROP_KEYLOCATOR = "keyLocator";
 
-        keyLocator = createLocator(keyLocatorClass);
-        keyLocator.configure(properties);
-    }
+	/**
+	 * The default {@link KeyLocator} class, {@link KeyFile}.
+	 */
+	public static final String DEFAULT_KEYLOCATOR = "com.github.ncredinburgh.tomcat.KeyFile";
 
-    public byte[] decrypt(byte[] cipherBytes) throws DecryptionException {
-        try {
-            validate();
+	/**
+	 * The default cipher mode, {@code NONE}.
+	 */
+	public static final String DEFAULT_MODE = "NONE";
 
-            String transformation = format("%s/%s/%s", algorithm, mode, padding);
-            SecretKeySpec keySpec = new SecretKeySpec(keyLocator.locateKey(), algorithm);
+	/**
+	 * The default padding, {@code NoPadding}.
+	 */
+	public static final String DEFAULT_PADDING = "NoPadding";
 
-            Cipher cipher = Cipher.getInstance(transformation);
-            cipher.init(DECRYPT_MODE, keySpec);
+	private String algorithm;
 
-            return cipher.doFinal(cipherBytes);
+	private String mode;
 
-        } catch (GeneralSecurityException e) {
-            throw new DecryptionException(e);
-        }
-    }
+	private String padding;
 
-    private void validate() throws DecryptionException {
-        if (algorithm == null) {
-            throw new DecryptionException("Property '" + PROP_ALGORITHM + "' not specified");
-        }
-    }
+	private KeyLocator keyLocator;
 
-    private KeyLocator createLocator(String keyLocator) throws DecryptionException {
-        try {
-            return (KeyLocator) Class.forName(keyLocator).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            throw new DecryptionException(e);
-        }
-    }
+	/**
+	 * Creates a new, unconfigured decryptor. Call {@link #configure(Properties)} before
+	 * {@link #decrypt(byte[])}.
+	 */
+	public ConfigurableDecryptor() {
+	}
+
+	/** {@inheritDoc} */
+	public void configure(Properties properties) throws DecryptionException {
+		algorithm = properties.getProperty(PROP_ALGORITHM);
+		mode = properties.getProperty(PROP_MODE, DEFAULT_MODE);
+		padding = properties.getProperty(PROP_PADDING, DEFAULT_PADDING);
+		String keyLocatorClass = properties.getProperty(PROP_KEYLOCATOR, DEFAULT_KEYLOCATOR);
+
+		keyLocator = createLocator(keyLocatorClass);
+		keyLocator.configure(properties);
+	}
+
+	/**
+	 * <p>
+	 * decrypt.
+	 * </p>
+	 * @param cipherBytes an array of byte.
+	 * @return an array of byte.
+	 * @throws com.github.ncredinburgh.tomcat.DecryptionException if any.
+	 */
+	public byte[] decrypt(byte[] cipherBytes) throws DecryptionException {
+		try {
+			validate();
+
+			String transformation = format("%s/%s/%s", algorithm, mode, padding);
+			SecretKeySpec keySpec = new SecretKeySpec(keyLocator.locateKey(), algorithm);
+
+			Cipher cipher = Cipher.getInstance(transformation);
+			cipher.init(DECRYPT_MODE, keySpec);
+
+			return cipher.doFinal(cipherBytes);
+
+		}
+		catch (GeneralSecurityException e) {
+			throw new DecryptionException(e);
+		}
+	}
+
+	private void validate() throws DecryptionException {
+		if (algorithm == null) {
+			throw new DecryptionException("Property '" + PROP_ALGORITHM + "' not specified");
+		}
+	}
+
+	private KeyLocator createLocator(String keyLocator) throws DecryptionException {
+		try {
+			return (KeyLocator) Class.forName(keyLocator).newInstance();
+		}
+		catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			throw new DecryptionException(e);
+		}
+	}
+
 }
