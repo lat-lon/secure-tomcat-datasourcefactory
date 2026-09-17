@@ -7,7 +7,7 @@ This library provides a drop in replacement for the standard Tomcat DataSourceFa
 
 This library may also be run from the command line to generate an encryption key and encrypted password to be used in the Tomcat configuration.
 
-The library can be tested using the docker `compose.yml`. The following databases have been tested:
+The library can be tested using the docker `compose.yml` which starts a Tomcat service and a database. The following databases have been tested:
 
 * Postgres 18
 * MS SQL Server 2022
@@ -17,6 +17,7 @@ Getting Started
 ---------------
 ### Download the Library
 * Download the latest version of the library from GitHub packages: https://github.com/orgs/lat-lon/packages?repo_name=secure-tomcat-datasourcefactory.
+* You may download additional files to run the library standalone from the command line or within Tomcat. To download the correct dependencies run the Maven plugin: `mvn dependency:copy-dependencies -DincludeScope=compile -DoutputDirectory=./target`. Copy the required files `jakarta.activation-api-X.Y.jar` and `jakarta.xml.bind-api-X.Y.jar` to the Tomcat server `lib/` folder. 
 
 ### Generate Key and Encrypted Password
 * Generate a new random encryption key to a file 
@@ -116,6 +117,10 @@ You can execute the `SecureTomcatDataSourceFactory` using the command line:
 ```
 $ java -jar secure-tomcat-datasourcefactory-0.6.jar <command> <options>
 ``` 
+or running the CLI with different locations for the required libraries:
+```
+$ java -cp "path/to/secure-tomcat-datasourcefactory-0.6.jar:/path/to/jakarta.xml.bind-api/*" com.github.ncredinburgh.tomcat.Main <command> <options>
+```
 
 The following commands are supported:
 
